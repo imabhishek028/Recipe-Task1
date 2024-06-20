@@ -4,8 +4,7 @@ import { MultiSelect } from 'react-native-element-dropdown';
 import { data } from './Utils/data';
 import { scale, verticalScale } from 'react-native-size-matters';
 
-
-export default function Main({navigation}) {
+export default function Main({ navigation }) {
   const ddata = [
     { label: 'Potato', value: 1 },
     { label: 'Broccoli', value: 2 },
@@ -20,9 +19,9 @@ export default function Main({navigation}) {
 
   const OnPressHandler = (item) => {
     var index = data.findIndex((i) => i === item);
-    console.log(index)
+    console.log(index);
     navigation.navigate('RecipeDetails', { index });
-  }
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -85,9 +84,9 @@ export default function Main({navigation}) {
           }}
           multiple={true}
           containerStyle={styles.dropdownContainer}
-          renderItem={item => (
-            <View style={styles.item}>
-              <Text style={styles.itemText}>{item.label}</Text>
+          renderItem={(item) => (
+            <View style={[styles.filterationView, selected.includes(item.value) && styles.selectedFilterationView]}>
+              <Text style={[styles.filterationText, selected.includes(item.value) && styles.selectedFilterationText]}>{item.label}</Text>
             </View>
           )}
           renderSelectedItem={(item, unSelect) => (
@@ -106,19 +105,19 @@ export default function Main({navigation}) {
         </TouchableOpacity>
       </View>
       <View style={styles.list}>
-        {buttonPressed === false ?
-          <View style={[{ justifyContent: 'center', alignContent: 'center', flex: 1 }]}>
-            <Text style={[{ alignSelf: 'center', fontSize: scale(16), color: '#000000' }]}>
-              Choose the ingredients and work that magic!
-            </Text>
-          </View>
-          : (
-            <FlatList
-              data={renderRecipe}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          )}
+        {buttonPressed === false ? (
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        ) : (
+          <FlatList
+            data={renderRecipe}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
@@ -233,8 +232,8 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: scale(15),
-    color: '#333333',
-    paddingLeft:scale(6)
+    color: '#000000',
+    paddingLeft: scale(6),
   },
   itemContainer: {
     backgroundColor: '#fff',
@@ -262,11 +261,26 @@ const styles = StyleSheet.create({
     width: scale(60),
     height: scale(40),
     borderRadius: scale(12),
-    resizeMode:'cover'
+    resizeMode: 'cover',
   },
   list: {
     flex: 1,
     backgroundColor: '#F0EAD6',
     paddingVertical: scale(1),
+    marginBottom: scale(20),
   },
-});
+  filterationView: {
+    padding: scale(10),
+    borderBottomWidth: scale(1),
+    borderBottomColor: '#cccccc',
+    backgroundColor: '#ffffff',
+    borderRadius: scale(16),
+  },
+  selectedFilterationView: {
+    backgroundColor: '#4CAF50',
+  },
+  filterationText: {
+    fontSize: scale(16),
+    color: '#000000',
+  },
+})

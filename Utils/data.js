@@ -19,7 +19,9 @@ export const data = [
          "5 potatoes, quartered"
       ],
       "preparationTime": 20,
-      "pic": require("./bakedpotato.jpg")
+      "pic": require("./bakedpotato.jpg"),
+      "cuisine":'Indian',
+      "dietaryRestriction":-1,
    },
    {
       "main": [1,3],
@@ -39,7 +41,9 @@ export const data = [
          "1 cup crushed potato chips"
       ],
       "preparationTime": 90,
-      "pic": require("./potatocosserole.webp")
+      "pic": require("./potatocosserole.webp"),
+      "cuisine":'American',
+      "dietaryRestriction":-3,
    },
    {
       "main": [1],
@@ -58,7 +62,9 @@ export const data = [
          "salt to taste"
       ],
       "preparationTime": 20,
-      "pic": require("./frenchfries.webp")
+      "pic": require("./frenchfries.webp"),
+      "cuisine":'American',
+      "dietaryRestriction":-2,
    },
    {
       "main": [1,3,4],
@@ -80,7 +86,9 @@ export const data = [
          "½ teaspoon black pepper"
       ],
       "preparationTime": 90,
-      "pic": require("./cheesegarlicpotato.jpg")
+      "pic": require("./cheesegarlicpotato.jpg"),
+      "cuisine":'Italian',
+      "dietaryRestriction":-1,
    },
    {
       "main": [1,5],
@@ -103,7 +111,9 @@ export const data = [
          "½ (15 ounce) can whole new potatoes, drained"
       ],
       "preparationTime": 45,
-      "pic": require("./chickenpotpie.webp")
+      "pic": require("./chickenpotpie.webp"),
+      "cuisine":'American',
+      "dietaryRestriction":-4,
    },
    {
       "main": [1,2],
@@ -127,7 +137,9 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 30,
-      "pic": require("./potatobroccolisoup.webp")
+      "pic": require("./potatobroccolisoup.webp"),
+      "cuisine":'Chinese',
+      "dietaryRestriction":-2,
    },
    {
       "main": [2,5],
@@ -149,7 +161,9 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 40,
-      "pic": require("./chickenbroccolicasserole.webp")
+      "pic": require("./chickenbroccolicasserole.webp"),
+      "cuisine":'American',
+      "dietaryRestriction":-4,
    },
    {
       "main": [1,2,4],
@@ -169,7 +183,9 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 30,
-      "pic": require("./garlicpotatobroccolimash.jpeg")
+      "pic": require("./garlicpotatobroccolimash.jpeg"),
+      "cuisine":'Indian',
+      "dietaryRestriction":-1,
    },
    {
       "main": [1, 3, 5],
@@ -190,7 +206,9 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 30,
-      "pic": require("./cheesychickenpotatoskillet.webp")
+      "pic": require("./cheesychickenpotatoskillet.webp"),
+      "cuisine":'Chinese',
+      "dietaryRestriction":-2,
    },
    {
       "main": [1, 4, 5],
@@ -209,7 +227,9 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 60,
-      "pic": require("./garlicchickenpotatobake.webp")
+      "pic": require("./garlicchickenpotatobake.webp"),
+      "cuisine":'Indian',
+      "dietaryRestriction":-4,
    },
    {
       "main": [2, 3, 4],
@@ -228,7 +248,9 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 45,
-      "pic": require("./cheesygarlicbroccolibake.jpg")
+      "pic": require("./cheesygarlicbroccolibake.jpg"),
+      "cuisine":'American',
+      "dietaryRestriction":-3,
    },
    {
       "main": [2, 3, 5],
@@ -247,7 +269,9 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 45,
-      "pic": require("./cheesychickenbroccolibake.png")
+      "pic": require("./cheesychickenbroccolibake.png"),
+      "cuisine":'Italian',
+      "dietaryRestriction":-4,
    },
    {
       "main": [2, 4, 5],
@@ -268,7 +292,9 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 20,
-      "pic": require("./garlicchickenbroccolistirfry.jpeg")
+      "pic": require("./garlicchickenbroccolistirfry.jpeg"),
+      "cuisine":'Chinese',
+      "dietaryRestriction":-4,
    },
    {
       "main": [3, 4, 5],
@@ -289,6 +315,8 @@ export const data = [
          "Salt and pepper to taste"
       ],
       "preparationTime": 20,
-      "pic": require("./cheesygarlicchickenskillet.jpeg")
+      "pic": require("./cheesygarlicchickenskillet.jpeg"),
+      "cuisine":'Italian',
+      "dietaryRestriction":-4,
    }
 ];

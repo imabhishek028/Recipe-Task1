@@ -58,7 +58,7 @@ export default function Favourites({ navigation }) {
       <StatusBar barStyle="dark-content" backgroundColor="#F0EAD6" />
       <View style={styles.header}>
         <Text style={styles.headingText}>Favourites!</Text>
-        <Text style={styles.subheadingText}>Glad you liked it!</Text>
+        <Text style={styles.subheadingText}>Pull down to Refresh!</Text>
       </View>
       <View style={styles.list}>
         {Array.isArray(renderData) && renderData.length === 0 ? (
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: scale(15),
-    color: '#333333',
+    color: '#000000',
     paddingLeft: scale(6),
   },
   itemContainer: {

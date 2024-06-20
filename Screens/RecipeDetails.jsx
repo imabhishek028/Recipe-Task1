@@ -23,7 +23,7 @@ export default function RecipeDetails({ navigation, route }) {
   }, [index]);
 
   const onPressBack = () => {
-    navigation.navigate('Home');
+    navigation.goBack()
   };
 
   const onPressStar = async () => {
