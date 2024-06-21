@@ -1,48 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, TextInput, Keyboard, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scale } from 'react-native-size-matters';
 
-const LoginPage = ({ navigation }) => {
-    const [username, setUsername] = useState('');
+const SignUp = ({ navigation }) => {
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
-        checkLoggedIn();
-    }, []);
-
-    const checkLoggedIn = async () => {
-        try {
-            const userToken = await AsyncStorage.getItem('userToken');
-            if (userToken) {
-                navigation.navigate('HomeTabs');
-            }
-        } catch (error) {
-            console.error('Error checking logged in status:', error);
-        }
+    const onPressLogin = () => {
+        navigation.navigate('LoginPage');
     };
 
-    const onPressSignUp = () => {
-        navigation.navigate('SignUp');
-    };
-
-    const onPressLogin = async () => {
+    const onPressSignUp = async () => {
         Keyboard.dismiss();
+
+
+        if (userName.trim().length < 6) {
+            Alert.alert('Error!', 'Username should be at least 6 characters long and should not contain spaces.');
+            return;
+        }
+        if (password.trim().length < 6) {
+            Alert.alert('Error!', 'Password should be at least 6 characters long.');
+            return;
+        }
+        if (/\s/.test(userName)) {
+            Alert.alert('Error!', 'Username should not contain spaces.');
+            return;
+        }
 
         try {
             const users = JSON.parse(await AsyncStorage.getItem('users')) || [];
-            const user = users.find(user => user.userName === username && user.password === password);
+            const userExists = users.some(user => user.userName === userName);
 
-            if (user) {
-                await AsyncStorage.setItem('userToken', 'abc123'); 
-
-                navigation.navigate('HomeTabs');
+            if (userExists) {
+                Alert.alert('Error!', 'Username already exists, try another username!');
             } else {
-                Alert.alert('Error', 'Username or password is incorrect. Please sign up.');
+                const lastLoginMethod = await AsyncStorage.getItem('users')
+                await AsyncStorage.clear()
+                await AsyncStorage.setItem("users", lastLoginMethod)
+
+                const newUser = { userName, password };
+                const updatedUsers = [...users, newUser];
+
+                await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+                Alert.alert('Success', 'You are signed up, enjoy some meals.');
+                navigation.navigate('HomeTabs');
             }
         } catch (error) {
-            console.error('Failed to login:', error);
+            console.log('Error signing up:', error);
         }
     };
 
@@ -54,13 +60,13 @@ const LoginPage = ({ navigation }) => {
             </View>
             <View style={styles.containerBody}>
                 <View style={styles.imageView}>
-                    <Image source={require('../Utils/login.png')} style={styles.image} />
+                    <Image source={require('../Utils/SignUp2.png')} style={styles.image} />
                 </View>
                 <TextInput
                     style={styles.UsernameInput}
                     placeholder="Enter Username"
-                    value={username}
-                    onChangeText={setUsername}
+                    value={userName}
+                    onChangeText={setUserName}
                 />
                 <TextInput
                     style={styles.UsernameInput}
@@ -69,18 +75,18 @@ const LoginPage = ({ navigation }) => {
                     onChangeText={setPassword}
                     secureTextEntry
                 />
-                <TouchableOpacity style={styles.buttonView} onPress={onPressLogin}>
-                    <Text style={styles.textButton}>Login</Text>
+                <TouchableOpacity style={styles.buttonView} onPress={onPressSignUp}>
+                    <Text style={styles.textButton}>Sign Up</Text>
                 </TouchableOpacity>
                 <View style={styles.signupView}>
                     <Text style={styles.signupText}>
-                        New User?
+                        Already a user?
                     </Text>
-                    <TouchableOpacity onPress={onPressSignUp}>
+                    <TouchableOpacity onPress={onPressLogin}>
                         <Text
                             style={styles.signupLink}
                         >
-                            Sign Up
+                            Login
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -161,4 +167,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginPage;
+export default SignUp;
