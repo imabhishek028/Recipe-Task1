@@ -12,6 +12,7 @@ import FilterRecipes from './Screens/FilterRecipes';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { scale, verticalScale } from 'react-native-size-matters';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import LoginPage from './Screens/LoginPage';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -76,7 +77,15 @@ export default function App() {
   return (
     <GestureHandlerRootView style={[{ flex: 1 }]}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Home'>
+        <Stack.Navigator initialRouteName='LoginPage'>
+        <Stack.Screen
+          name="LoginPage"
+          component={LoginPage}
+          options={{
+            header:()=>null
+          }}
+        />
+
           <Stack.Screen
             name="HomeTabs"
             component={Hometabs}
