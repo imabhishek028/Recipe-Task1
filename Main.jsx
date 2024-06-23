@@ -19,7 +19,6 @@ export default function Main({ navigation }) {
 
   const OnPressHandler = (item) => {
     var index = data.findIndex((i) => i === item);
-    console.log(index);
     navigation.navigate('RecipeDetails', { index });
   };
 

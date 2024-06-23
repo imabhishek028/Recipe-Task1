@@ -9,10 +9,9 @@ export default function RecipeInput({ navigation }) {
     const [ingredients, setIngredients] = useState('');
     const [procedure, setProcedure] = useState('');
 
-
     const onPressBack = () => {
-        navigation.goBack()
-    }
+        navigation.goBack();
+    };
 
     const saveRecipe = async () => {
         if (!nameRecipe.trim() || !ingredients.trim() || !procedure.trim()) {
@@ -45,7 +44,6 @@ export default function RecipeInput({ navigation }) {
             <StatusBar barStyle="dark-content" backgroundColor="#F0EAD6" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inner}>
-                    <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
                     <View style={styles.header}>
                         <Text style={styles.headingText}>Add details of your Recipe!</Text>
                     </View>
@@ -86,8 +84,8 @@ export default function RecipeInput({ navigation }) {
                 </View>
             </TouchableWithoutFeedback>
             <TouchableOpacity onPress={onPressBack} style={styles.iconButton}>
-                    <FontAwesome5 name="long-arrow-alt-left" size={40} color="#000000" />
-                </TouchableOpacity>
+                <FontAwesome5 name="long-arrow-alt-left" size={40} color="#000000" />
+            </TouchableOpacity>
         </SafeAreaView>
     );
 }
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
         borderRadius: scale(12),
         paddingHorizontal: scale(10),
         fontSize: scale(16),
-        color: '#333333',
+        color: '#000000',
     },
     button: {
         backgroundColor: '#4CAF50',
@@ -146,6 +144,6 @@ const styles = StyleSheet.create({
     iconButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom:scale(30)
-    }
+        marginBottom: scale(20),
+    },
 });

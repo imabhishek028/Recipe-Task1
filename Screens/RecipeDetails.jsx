@@ -6,10 +6,51 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { data } from '../Utils/data';
+import { Rating } from 'react-native-ratings';
 
 export default function RecipeDetails({ navigation, route }) {
   const { index } = route.params;
   const [clicked, setClicked] = useState(false);
+  const [starRating, setStarRating] = useState(null);
+  const [initialRating, setInitialRating] = useState(3.5);
+
+  useEffect(() => {
+    const getStarRating = async () => {
+      try {
+        const starData = await AsyncStorage.getItem('star_key1');
+        const starDataParsed = starData ? JSON.parse(starData) : [];
+        const rating = starDataParsed.find((i) => i.recipeName === data[index].name);
+
+        if (rating) {
+          setInitialRating(rating.starValue);
+        }
+      } catch (error) {
+        console.log(error); 
+      }
+    };
+
+    getStarRating();
+  }, [index]);
+
+  const setAsyncStorage = async (value) => {
+    const starValue = {
+      recipeName: data[index].name,
+      starValue: value
+    }
+    try {
+      const currentData = await AsyncStorage.getItem('star_key1');
+      const currentDataParsed = currentData ? JSON.parse(currentData) : [];
+      
+      const existingIndex = currentDataParsed.findIndex(item => item.recipeName === data[index].name);
+      if (existingIndex !== -1) {
+        currentDataParsed[existingIndex].starValue = value;
+      } else {
+        currentDataParsed.push(starValue);
+      }
+      await AsyncStorage.setItem('star_key1', JSON.stringify(currentDataParsed));
+    } catch (error) {
+    }
+  }
 
   useEffect(() => {
     const checkIfRecipeIsFav = async () => {
@@ -23,7 +64,7 @@ export default function RecipeDetails({ navigation, route }) {
   }, [index]);
 
   const onPressBack = () => {
-    navigation.goBack()
+    navigation.goBack();
   };
 
   const onPressStar = async () => {
@@ -58,6 +99,7 @@ export default function RecipeDetails({ navigation, route }) {
       }
     }
   };
+
   const getExistingFavouriteRecipe = async () => {
     try {
       let listFav = await AsyncStorage.getItem('FavouriteRecipes');
@@ -77,7 +119,7 @@ export default function RecipeDetails({ navigation, route }) {
       <StatusBar barStyle="dark-content" backgroundColor="#F0EAD6" />
       <View style={styles.header}>
         <Text style={styles.headingText}>
-         {data[index].name}
+          {data[index].name}
         </Text>
         <View style={styles.viewImageFlex}>
           <TouchableOpacity onPress={onPressBack} style={styles.iconButton}>
@@ -122,6 +164,21 @@ export default function RecipeDetails({ navigation, route }) {
           </Text>
         </View>
       </ScrollView>
+      <View style={styles.ratingContainer}>
+        <Text style={styles.textHeading}>Rate this recipe:</Text>
+        <Rating
+          type='star'
+          ratingCount={5}
+          imageSize={scale(30)}
+          ratingBackgroundColor='#F0EAD6'
+          tintColor='#F0EAD6'
+          startingValue={initialRating}
+          onFinishRating={(value) => {
+            setStarRating(value);
+            setAsyncStorage(value);
+          }}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -160,6 +217,7 @@ const styles = StyleSheet.create({
   list: {
     backgroundColor: '#FFFFFF',
     margin: scale(10),
+    marginTop: scale(2),
     borderRadius: scale(10),
     padding: scale(10),
     shadowColor: '#000',
@@ -193,20 +251,20 @@ const styles = StyleSheet.create({
   contentText1: {
     fontSize: scale(18),
     color: '#333333',
-    padding: scale(2),
     marginLeft: scale(5),
     marginBottom: scale(5),
+    textAlign: 'justify',
+  },
+  ratingContainer: {
+    backgroundColor: '#F0EAD6',
+    padding: scale(10),
+    alignItems: 'center',
   },
   viewImageFlex: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%',
-    paddingHorizontal: scale(20),
   },
   iconButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent:'center'
-  }
+    padding: scale(10),
+  },
 });

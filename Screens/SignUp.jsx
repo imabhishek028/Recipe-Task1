@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, TextInput, Keyboard, Alert } from 'react-native';
+import React, { useState , useEffect} from 'react';
+import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, TextInput, Keyboard, Alert,  } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scale } from 'react-native-size-matters';
@@ -10,6 +10,21 @@ const SignUp = ({ navigation }) => {
 
     const onPressLogin = () => {
         navigation.navigate('LoginPage');
+    };
+
+    useEffect(() => {
+        checkLoggedIn();
+    }, []);
+
+    const checkLoggedIn = async () => {
+        try {
+            const userToken = await AsyncStorage.getItem('userToken');
+            if (userToken) {
+                navigation.navigate('HomeTabs');
+            }
+        } catch (error) {
+            console.error('Error checking logged in status:', error);
+        }
     };
 
     const onPressSignUp = async () => {
@@ -36,15 +51,14 @@ const SignUp = ({ navigation }) => {
             if (userExists) {
                 Alert.alert('Error!', 'Username already exists, try another username!');
             } else {
-                const lastLoginMethod = await AsyncStorage.getItem('users')
                 await AsyncStorage.clear()
-                await AsyncStorage.setItem("users", lastLoginMethod)
 
                 const newUser = { userName, password };
                 const updatedUsers = [...users, newUser];
 
                 await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
                 Alert.alert('Success', 'You are signed up, enjoy some meals.');
+                await AsyncStorage.setItem('userToken', 'abc123'); 
                 navigation.navigate('HomeTabs');
             }
         } catch (error) {
