@@ -61,20 +61,21 @@ export default function Favourites({ navigation }) {
         <Text style={styles.subheadingText}>Pull down to Refresh!</Text>
       </View>
       <View style={styles.list}>
-        {Array.isArray(renderData) && renderData.length === 0 ? (
-          <View style={[{ justifyContent: 'center', alignContent: 'center', flex: 1 }]}>
+        {/* {Array.isArray(renderData) && renderData.length === 0 ? (
+          <View style={[{ justifyContent: 'center', alignContent: 'center', flex: 1 }]}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
             <Text style={[{ alignSelf: 'center', fontSize: scale(16), color: '#000000' }]}>
               Add recipes to favourite and view them here!
             </Text>
           </View>
-        ) : (
+        ) : ( */}
           <FlatList
             data={renderData}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           />
-        )}
+        {/* )} */}
       </View>
     </SafeAreaView>
   );

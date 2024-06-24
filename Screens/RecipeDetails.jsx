@@ -7,12 +7,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { data } from '../Utils/data';
 import { Rating } from 'react-native-ratings';
+import Tts from 'react-native-tts';
 
 export default function RecipeDetails({ navigation, route }) {
   const { index } = route.params;
   const [clicked, setClicked] = useState(false);
   const [starRating, setStarRating] = useState(null);
   const [initialRating, setInitialRating] = useState(3.5);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const getStarRating = async () => {
@@ -114,6 +116,27 @@ export default function RecipeDetails({ navigation, route }) {
     }
   };
 
+  const onPressPlay = () => {
+    try {
+      const procedureSteps = Object.values(data[index].procedure).join(' ');
+      if (isPlaying) {
+        Tts.stop();
+      } else {
+        Tts.speak(procedureSteps, {
+          androidParams: {
+            KEY_PARAM_PAN: -1,
+            KEY_PARAM_VOLUME: 0.5,
+            KEY_PARAM_STREAM: 'STREAM_MUSIC',
+          },
+        });
+      }
+      setIsPlaying(!isPlaying);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  
   return (
     <SafeAreaView style={styles.totalContainer}>
       <StatusBar barStyle="dark-content" backgroundColor="#F0EAD6" />
@@ -146,9 +169,18 @@ export default function RecipeDetails({ navigation, route }) {
           ))}
         </View>
         <View style={styles.oneView}>
-          <Text style={styles.textHeading}>
-            Procedure
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={styles.textHeading}>
+              Procedure
+            </Text>
+            <TouchableOpacity
+              style={styles.playAudio}
+              onPress={onPressPlay}>
+              <Text>
+                <FontAwesome5 name={isPlaying ? "pause" : "play"} size={scale(20)} color={'#000000'} />
+              </Text>
+            </TouchableOpacity>
+          </View>
           {Object.keys(data[index].procedure).map(step => (
             <Text key={step} style={styles.contentText1}>
               {data[index].procedure[step]}
@@ -266,5 +298,8 @@ const styles = StyleSheet.create({
   },
   iconButton: {
     padding: scale(10),
+  },
+  playAudio: {
+    marginLeft: scale(130),
   },
 });
