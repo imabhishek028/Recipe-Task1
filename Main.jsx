@@ -1,10 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert, Image, FlatList } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
 import { data } from './Utils/data';
 import { scale, verticalScale } from 'react-native-size-matters';
+import { BackHandler } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Main({ navigation }) {
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const handleBackPress = () => {
+        Alert.alert(
+          'Exit App?',
+          'Are you sure you want to exit?',
+          [
+            { text: 'Cancel', onPress: () => null, style: 'cancel' },
+            { text: 'Ok', onPress: () => BackHandler.exitApp() }
+          ],
+          { cancelable: false }
+        );
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+      };
+    }, [])
+  );
+
+  
   const ddata = [
     { label: 'Potato', value: 1 },
     { label: 'Broccoli', value: 2 },

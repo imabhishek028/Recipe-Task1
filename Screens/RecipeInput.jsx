@@ -44,8 +44,13 @@ export default function RecipeInput({ navigation }) {
             <StatusBar barStyle="dark-content" backgroundColor="#F0EAD6" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inner}>
-                    <View style={styles.header}>
-                        <Text style={styles.headingText}>Add details of your Recipe!</Text>
+                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                        <TouchableOpacity onPress={onPressBack} style={styles.iconButton}>
+                            <FontAwesome5 name="long-arrow-alt-left" size={40} color="#000000" />
+                        </TouchableOpacity>
+                        <View style={styles.header}>
+                            <Text style={styles.headingText}>Add details of your Recipe!</Text>
+                        </View>
                     </View>
                     <View style={styles.inputContainer}>
                         <Text style={styles.label}>Name:</Text>
@@ -83,9 +88,6 @@ export default function RecipeInput({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
-            <TouchableOpacity onPress={onPressBack} style={styles.iconButton}>
-                <FontAwesome5 name="long-arrow-alt-left" size={40} color="#000000" />
-            </TouchableOpacity>
         </SafeAreaView>
     );
 }
@@ -142,8 +144,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     iconButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: scale(20),
+       marginLeft:scale(5)
     },
 });
