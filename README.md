@@ -1,23 +1,51 @@
 # Recipe-Task1
-Spider Inductions Task 1 by Abhishek Jha, Roll No- 110123005.
+Spider Inductions Task 1 by Abhishek Jha, Roll No- 110123005
 
-I have completed all the levels. I have tried to add some additional features such as App Icon, Splash Screen, Scale to make app usable on any mobile size and tried to have a bug free and clean UI. 
+I have completed all the levels and added some additional features, including:
+
+1. App Icon
+2. Splash Screen
+3. Scalability for usability on any mobile size
+4. Bug-free and clean UI
+
 
 NAVIGATION- 
-The app has app.jsx as it's main navigation file. I have used two navigators stack and bottom drawer.
+The main navigation file is app.jsx. The app uses two navigators: stack and bottom drawer.
 
 SCREENS-
-The App consists of multiple screens. All of them are listed under Screens except for one which is main.jsx
-There is also a Utils directory that contains data.js and all the recipe images. Basically holds all the raw data.
+The app consists of multiple screens, listed under the Screens directory, except for main.jsx. There is also a Utils directory containing data.js and all the recipe images, which holds all the raw data.
 
-To run the application, head over to Demo directory and download the 'RecipesbyAbhishek.apk' and view it in your phone. Demo directory also contains images of all the pages and functionality.
+RUNNING THE APPLICATION- 
+To view the app on your phone:
 
-To run the code-
-1. Clone Repo, install Android Studio and make an emulator.
-2. Install appropriate versions and dependencies by checking package.json.
-3. Open terminal, type 'npx react-native run-android'. This command will open an emulator to run the application.
+1. Head over to the Demo directory.
+2. Download the RecipesbyAbhishek.apk.
+3. Install and run it on your Android device.
+4. The Demo directory also contains images of all the pages and functionality.
 
 
-It was a great learning experience, looking forward to the upcoming tasks.  
+SETTING UP THE CODE- 
+To set up and run the code on your machine:
+
+1. Clone the repository-
+git clone <imabhishek028/Recipe-Task1>
+cd <imabhishek028/Recipe-Task1>
+
+2. Install Android Studio-
+Download and install Android Studio from the official website. 
+Set up an Android emulator.
+
+3. Install Dependencies-
+Navigate to the project directory.
+Install the necessary dependencies by checking the package.json file. You can install them using:
+npm install
+
+4. Run the Application- 
+Open a terminal and navigate to the project directory.
+Run the following command to start the application on the emulator:
+npx react-native run-android
+
+This command will open an emulator and run the application.
+
 
 
